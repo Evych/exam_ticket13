@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+
+// Функція для знаходження мінімального елемента масиву
+double findMin(const std::vector<double>& arr) {
+    double min = arr[0];
+    for (size_t i = 1; i < arr.size(); ++i) {
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    return min;
+}
+
+// Функція для знаходження суми елементів між першим і останнім додатним
+double sumBetweenPositives(const std::vector<double>& arr) {
+    int firstPositiveIndex = -1, lastPositiveIndex = -1;
+    for (size_t i = 0; i < arr.size(); ++i) {
+        if (arr[i] > 0) {
+            if (firstPositiveIndex == -1) {
+                firstPositiveIndex = i;
+            }
+            lastPositiveIndex = i;
+        }
+    }
+
+    double sum = 0;
+    if (firstPositiveIndex != -1 && lastPositiveIndex != -1 && lastPositiveIndex != firstPositiveIndex) {
+        for (size_t i = firstPositiveIndex + 1; i < lastPositiveIndex; ++i) {
+            sum += arr[i];
+        }
+    }
+    return sum;
+}
+
+// Функція для перетворення масиву
+void transformArray(std::vector<double>& arr) {
+    size_t zeroIndex = 0;
+    for (size_t i = 0; i < arr.size(); ++i) {
+        if (arr[i] == 0) {
+            std::swap(arr[i], arr[zeroIndex]);
+            zeroIndex++;
+        }
+    }
+}
+
+int main() {
+    std::vector<double> arr = {3, -5, 2, 0, 8, -4, 0, 6}; // Приклад масиву
+
+    // Знаходимо мінімальний елемент
+    double minValue = findMin(arr);
+    std::cout << "Мінімальний елемент масиву: " << minValue << std::endl;
+
+    // Знаходимо суму між першим і останнім додатним
+    double sum = sumBetweenPositives(arr);
+    std::cout << "Сума елементів між першим і останнім додатнім: " << sum << std::endl;
+
+    // Перетворюємо масив
+    transformArray(arr);
+
+    // Виводимо перетворений масив
+    std::cout << "Перетворений масив: ";
+    for (size_t i = 0; i < arr.size(); ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
